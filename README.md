@@ -9,3 +9,5 @@ if you need help to use it simply use /help
 use /commands to get all the commands at your keyboard.
 
 This bot's API is generated using BotFather bot on Telegram.
+
+[Video Explanation](https://drive.google.com/file/d/1UGyp9d1idCKiBf6yz4lzcIOodQb7hZJM/view?usp=sharing)
