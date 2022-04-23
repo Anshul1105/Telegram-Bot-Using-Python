@@ -1,0 +1,61 @@
+
+import os
+import telebot
+from telebot import types
+
+my_secret = os.environ['API_KEY']
+bot = telebot.TeleBot(my_secret)
+
+@bot.message_handler(commands=["hello","start"])
+def send_help_message(msg):
+  bot.reply_to(msg, "Hello! pleased to see you. tell me how can I help you  :)")
+
+@bot.message_handler(commands=["about"])
+def send_about_message(msg):
+  bot.reply_to(msg, "This is a prototype bot created by noob comder to for Debugit 2022,COPS. IIT(BHU)")
+
+
+@bot.message_handler(content_types=["photo","stiker"])
+def send_content_message(msg):
+  bot.reply_to(msg, "That is not a text msg ")
+
+@bot.message_handler(commands=["help"])
+def send_single_message(msg):
+  bot.reply_to(msg, " Well as I said, I am a prototype so I cant help you much, type /commands to see what I can do: ")
+  
+@bot.message_handler(commands=["noob"])
+def send_multi_message(msg):
+  bot.reply_to(msg, "I am a prototype so please enter a valid command that I can understand :) ")
+
+
+# edit a text and then replace it with /noice command
+@bot.edited_message_handler(commands=["noice"])
+def send_edit_message(msg):
+  bot.send_message(chat_id=msg.chat.id, text= " GOD saw what you just did!!! ")
+  
+
+  
+@bot.message_handler(commands=["close"])
+def send_game_message(msg):
+  markup = types.ReplyKeyboardRemove(selective=False)
+  bot.send_message(chat_id=msg.chat.id, text= "Good BYE have a nice day :)", reply_markup=markup)
+
+  
+@bot.message_handler(commands=["commands"])
+def send_game_message(msg):
+  markup = types.ReplyKeyboardMarkup(row_width=5)
+  btn1 = types.KeyboardButton("/start")
+  btn2 = types.KeyboardButton("/help")
+  btn3 = types.KeyboardButton("/noob")
+  btn4 = types.KeyboardButton("/dice")
+  btn5 = types.KeyboardButton("/close")
+  markup.add(btn1, btn2 ,btn3, btn4, btn5)
+  bot.send_message(chat_id=msg.chat.id, text= " What do you want?  choose any of the following command: ", reply_markup=markup)
+
+# DICE
+@bot.message_handler(commands=["dice"])
+def send_dice_message(msg):
+  bot.send_dice(chat_id=msg.chat.id)
+  
+bot.polling()
+
